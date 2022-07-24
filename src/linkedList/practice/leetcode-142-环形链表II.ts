@@ -1,16 +1,15 @@
 import type { ListNode } from './index.type'
 
 export function detectCycle(head: ListNode | null): ListNode | null {
-  if (!head) return null
-
+  if (!head?.next) return head
   let p: ListNode | null = head,
     q: ListNode | null = head
   do {
     p = p!.next
     q = q.next?.next ?? null
-  } while (p !== q && q?.next)
+  } while (q?.next && p !== q)
 
-  if (q === null || q?.next === null) return null
+  if (!q?.next) return null
 
   p = head
   while (p !== q) {
